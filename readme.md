@@ -1,7 +1,9 @@
 # PHPUnit Installation
 
 # Installing PHPUnit with Composer
+```
 $composer require --dev phpunit/phpunit
+```
 
 # Running PHPUnit and adding an alias (macOS, Linux)
 ```
