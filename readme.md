@@ -13,6 +13,6 @@ $alias phpunit="./vendor/phpunit/phpunit/phpunit"
 
 # Running PHPUnit and adding a shortcut (Windows)
 ```
-$php vendor\phpunit\phpunit\phpunit
-$echo @php "%~dp0vendor\phpunit\phpunit\phpunit" %* > phpunit.cmd
+php vendor\phpunit\phpunit\phpunit
+echo @php "%~dp0vendor\phpunit\phpunit\phpunit" %* > phpunit.cmd
 ```
