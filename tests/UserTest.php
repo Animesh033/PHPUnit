@@ -6,7 +6,7 @@ class UserTest extends TestCase
 {
     public function testReturnsFullName()
     {
-        require 'src/User.php'; //Autoloading is configured in composer.json file so required is not need now
+        // require 'User.php'; //Autoloading is configured in composer.json file so required is not need now
 
         $user = new User;
 
