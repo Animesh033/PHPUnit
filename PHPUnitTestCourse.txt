@@ -94,7 +94,7 @@ on other test method and dependent data should return from the dependent test me
 /
 
 =================================================================
-Fixtures
+Fixtures - A test usually follows the “Arrange, Act, Assert” structure: arranging all necessary preconditions and inputs (the so-called test fixture), acting on the object under test, and asserting that the expected results have occurred.
 
 setUp method inside test class - which will run before each test cases
 tests/QueueTest.php
