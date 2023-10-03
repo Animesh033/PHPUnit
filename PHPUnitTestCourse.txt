@@ -1,0 +1,198 @@
+PHPUnitCourse/tests/FunctionTest.php
+===========================================
+<?php
+
+use PHPUnit\Framework\TestCase
+
+class FunctionTest extends TestCase {
+	public function testAddReturnsTheCorrectSum() {
+		require 'functions.php';
+		
+		$this->assertEquals(4, add(2, 2));
+		$this->assertEquals(5, add(3, 5));
+	}
+
+	public function testAddDoesNotReturnsTheCorrectSum() {
+
+		$this->assertNotEquals(5, add(2, 2));
+	}
+}
+
+============================================
+End of FunctionTest.php
+============================================
+
+PHPUnitCourse/functions.php
+============================================
+<?php
+
+function add($a, $b) {
+	return $a + $b;
+}
+============================================
+End of functions.php
+============================================
+
+Outputting the test results in color
+phpunit tests/ --color
+
+===============================================
+phpunit.xml
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit colors="true">
+
+</phpunit>
+Now color attr is enabled and we don't require to add color flag while running test commad
+==============================================
+phpunit.xml
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit colors="true">
+	<testsuites>
+		<testsuite name="Test suite">
+			<directory>tests</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
+Using above configuration we can run the test command with phpunit only
+========================================================
+cmd
+phpunit --bootstrap='vendor/autoload.php'
+composer dump-autoload
+=========================================================
+phpunit.xml
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit colors="true"
+	verbose="true"
+	bootstrap="vendor/autoload.php">
+	<testsuites>
+		<testsuite name="Test suite">
+			<directory>tests</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
+
+Create src folder and put User.php into it and specify this folder in composer autoload psr to autoload these files
+composer.json
+=============
+"autoload": {
+	"psr" : {
+		"" : "src/"
+	}
+}
+=============
+Using bootstrap attr as shown above, we run the test without mentioning in cmd as shown in above example
+=================================================================
+if one test method is dependent upon another then we use @depends classMethod to indicate that it's dependent 
+on other test method and dependent data should return from the dependent test method
+/
+*
+* @depends testMethod
+*
+/
+
+=================================================================
+Fixtures
+
+setUp method inside test class - which will run before each test cases
+tests/QueueTest.php
+<?php
+
+use PHPUnit\Framework\TestCase
+
+class QueueTest extends TestCase {
+	protected $queue;
+	
+	protected function setUp() : void
+	{
+		$this->queue = new Queue;
+		//In a test class. The setup method is run before every single test method. We just used this to create a new queue object for every test. So each test started with a known state or fixture.
+	}
+
+	protected function tearDown() : void
+	{
+		unset($this->queue);
+	}
+
+	protected static function setUpBeforeClass() : void
+	{
+		static::$queue = new Queue;
+	}
+
+	protected static function tearDownAfterClass() : void
+	{
+		static::$queue = null;
+	}
+}
+
+===================================================================
+Test Doubles
+<?php
+
+use PHPUnit\Framework\TestCase
+
+class MockTest extends TestCase {
+
+	public function testMock() {
+		$mock = $this->createMock(Mailer::class);
+
+		$mock->expects($this->once())
+			->with($this->equalTo("animesh@example.com"), $this->equalTo("Hello"))
+			->method("sendMessage")
+			->willReturn(true);
+
+		$result = $mock->sendMessage("animesh@example.com", "Hello");
+
+		$this->assertTrue($result);
+
+		//var_dump($result);
+		//$this->once(), $this->never()
+		//$mock->will($this->throwException(new Exception) //Incase of expecting exception 
+
+		// To get the actual mailer class, we can use 
+			$user = new User;
+			$mock_mailer = $this->getMockBuilder(Mailer::class)
+						->setMethods(null)
+						->getMock();
+			
+			$user->setMailer($mock_mailer);
+
+			$this->expectException(Exception::class);
+			
+			$user->notify("Hello");
+
+		//->setMethods(null) //we pass null, then none of the original methods will be stubbed,
+
+and the original code will execute.
+// ->setMethods(['sendMessage']) - To stubbed the sendMessage
+			
+	}
+
+}
+
+Dependency injection =>
+=======================
+
+
+=============================================================================
+Mockery - an alternative mocking
+
+composer require mockery/mockery --dev
+
+
+=============================================================================
+alias for phpunit =>
+in cmd
+$alias phpunit="./vendor/phpunit/phpunit/phpunit"
+
+$composer dump-autoload
+
+==============================================================================
+TEST Driven Development
+
+Reflection class - to test private methods and attr
+
+
+9243500460
