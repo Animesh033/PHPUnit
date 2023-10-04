@@ -1,4 +1,4 @@
-_PHPUnit
+*.zip
 vendor
 #.phpunit.cache
 #.phpunit.result.cache
