@@ -16,3 +16,5 @@ $alias phpunit="./vendor/phpunit/phpunit/phpunit"
 php vendor\phpunit\phpunit\phpunit
 echo @php "%~dp0vendor\phpunit\phpunit\phpunit" %* > phpunit.cmd
 ```
+
+[Test doubles](https://medium.com/@kashwin95kumar/what-do-you-mean-by-test-doubles-b57a2a792973)
